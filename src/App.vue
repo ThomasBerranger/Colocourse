@@ -1,10 +1,24 @@
 <template>
   <nav>
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/about">About</router-link> |
+    <a @click.prevent="handleLogout()" href="#">Déconnexion</a>
   </nav>
   <router-view/>
 </template>
+
+<script>
+import { auth } from '../firebase/config';
+import { signOut } from 'firebase/auth';
+
+export default {
+  methods: {
+    handleLogout() {
+      signOut(auth);
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 #app {

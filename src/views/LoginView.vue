@@ -1,0 +1,41 @@
+<template>
+  <form @submit.prevent="handleSubmit()">
+    <input v-model="login" type="text" required placeholder="identifiant">
+    <input v-model="password" type="text" required placeholder="mot de passe">
+    <button>Connexion</button>
+  </form>
+</template>
+
+<script>
+import { auth } from '../../firebase/config';
+import { signInWithEmailAndPassword } from '@firebase/auth';
+
+export default {
+  data() {
+    return {
+      login: '',
+      password: '',
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      try {
+        const res = await signInWithEmailAndPassword(auth, this.login, this.password);
+        
+        if (!res) {
+          throw new Error('Arg! Il y a un pépin.');
+        }
+        
+        this.error = null;
+        console.log(res);
+      } catch (err) {
+        this.error = err.message;
+      }
+    }
+  }
+}
+</script>
+
+<style>
+
+</style>
