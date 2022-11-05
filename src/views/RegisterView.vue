@@ -2,13 +2,13 @@
   <form @submit.prevent="handleSubmit()">
     <input v-model="login" type="text" required placeholder="identifiant">
     <input v-model="password" type="text" required placeholder="mot de passe">
-    <button>Connexion</button>
+    <button>Créer le compte</button>
     <p v-if="error">{{ error }}</p>
   </form>
 </template>
 
 <script>
-import { auth } from '../../firebase/config';
+import { auth } from '@/firebase/config';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default {

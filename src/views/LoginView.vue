@@ -3,11 +3,12 @@
     <input v-model="login" type="text" required placeholder="identifiant">
     <input v-model="password" type="text" required placeholder="mot de passe">
     <button>Connexion</button>
+    <p v-if="error">{{ error }}</p>
   </form>
 </template>
 
 <script>
-import { auth } from '../../firebase/config';
+import { auth } from '@/firebase/config';
 import { signInWithEmailAndPassword } from '@firebase/auth';
 
 export default {
@@ -15,6 +16,7 @@ export default {
     return {
       login: '',
       password: '',
+      error: null
     }
   },
   methods: {
@@ -27,7 +29,6 @@ export default {
         }
         
         this.error = null;
-        console.log(res);
       } catch (err) {
         this.error = err.message;
       }
