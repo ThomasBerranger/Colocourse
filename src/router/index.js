@@ -4,6 +4,8 @@ import LoginView from '../views/LoginView';
 import RegisterView from '../views/RegisterView';
 import HomeView from '../views/HomeView';
 import AddView from '../views/AddView';
+import EditView from '../views/EditView';
+import NotFound from '../views/NotFoundView';
 
 const requiredAuth = (to, from, next) => {
   let user = auth.currentUser;
@@ -37,6 +39,18 @@ const routes = [
     name: 'add',
     component: AddView,
     beforeEnter: requiredAuth
+  },
+  {
+    path: '/products/:id',
+    name: 'edit',
+    component: EditView,
+    props: true,
+    beforeEnter: requiredAuth
+  },
+  {
+    path: "/:catchAll(.*)",
+    name: "notFound",
+    component: NotFound,
   }
 ]
 
