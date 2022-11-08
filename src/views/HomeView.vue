@@ -1,21 +1,25 @@
 <template>
+  <nav>
+    <router-link to="/add">Ajouter</router-link> |
+    <a @click.prevent="handleLogout()" href="#">Déconnexion</a>
+  </nav>
   <div class="home">
-    <h2>Inscription</h2>
-    <RegisterView />
-    <h2>Connexion</h2>
-    <LoginView />
+    <h1>Home</h1>
   </div>
 </template>
 
 <script>
-import RegisterView from '@/views/RegisterView.vue';
-import LoginView from '@/views/LoginView.vue';
+import { auth } from '@/firebase/config';
+import { signOut } from 'firebase/auth';
 
 export default {
   name: 'HomeView',
-  components: {
-    RegisterView,
-    LoginView
+  methods: {
+    handleLogout() {
+      signOut(auth);
+      
+      this.$router.push('/login');
+    }
   }
-}
+};
 </script>

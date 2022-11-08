@@ -1,12 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import HomeView from '../views/HomeView.vue';
-import AboutView from '../views/AboutView.vue';
 import { auth } from '../firebase/config';
+import LoginView from '../views/LoginView';
+import RegisterView from '../views/RegisterView';
+import HomeView from '../views/HomeView';
+import AddView from '../views/AddView';
 
 const requiredAuth = (to, from, next) => {
   let user = auth.currentUser;
+  
   if (!user) {
-    next({ name: 'home' });
+    next({ name: 'login' });
   } else {
     next();
   }
@@ -14,14 +17,25 @@ const requiredAuth = (to, from, next) => {
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    path: '/login',
+    name: 'login',
+    component: LoginView
   },
   {
-    path: '/about',
-    name: 'about',
-    component: AboutView,
+    path: '/register',
+    name: 'register',
+    component: RegisterView
+  },
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView,
+    beforeEnter: requiredAuth
+  },
+  {
+    path: '/add',
+    name: 'add',
+    component: AddView,
     beforeEnter: requiredAuth
   }
 ]

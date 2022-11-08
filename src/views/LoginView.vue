@@ -1,9 +1,17 @@
 <template>
   <form @submit.prevent="handleSubmit()">
-    <input v-model="login" type="text" required placeholder="identifiant">
-    <input v-model="password" type="text" required placeholder="mot de passe">
+    <h1>Connexion</h1>
+    <div>
+      <label>Email</label>
+      <input v-model="login" type="text" required>
+    </div>
+    <div>
+      <label>Mot de passe</label>
+      <input v-model="password" type="password" required>
+    </div>
     <button>Connexion</button>
     <p v-if="error">{{ error }}</p>
+    <router-link to="/register">Créer un compte</router-link>
   </form>
 </template>
 
@@ -29,6 +37,8 @@ export default {
         }
         
         this.error = null;
+
+        this.$router.push('/');
       } catch (err) {
         this.error = err.message;
       }
@@ -38,5 +48,39 @@ export default {
 </script>
 
 <style>
+form {
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 5vh 5vw;
+  text-align: center;
+}
 
+h1 {
+  text-align: center;
+}
+
+form > div {
+  text-align: left;
+  margin: 3vh 0;
+}
+
+input {
+  border-color: #593712;
+  border-radius: 5px;
+  font-size: 15px;
+  padding: 5px;
+}
+
+button {
+  width: 100%;
+  color: white;
+  background-color: #593712;
+  border: none;
+  border-radius: 2px;
+  padding: 1.5vh 0;
+  margin-bottom: 3vh;
+}
 </style>
