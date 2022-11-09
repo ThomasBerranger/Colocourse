@@ -1,12 +1,18 @@
 <template>
   <nav>
     <router-link to="/add">Ajouter</router-link> |
-    <a @click.prevent="handleLogout()" href="#">Déconnexion</a>
+    <a @click.prevent="handleLogout()" href="#">Déconnexion</a> |
+    <i v-if="display === 'grid'" @click="display = 'edition'" class="fa-solid fa-plus-minus"></i>
+    <i v-else @click="display = 'grid'" class="fa-solid fa-user"></i>
   </nav>
   <br><br>
-  <div class="charts-container">
-    <Product v-for="product in products" :key="product.id" :product="product"/>
+  <div :class="display === 'grid' ? 'products-container-3' : 'products-container-2'">
+    <Product v-for="product in products" :key="product.id" :product="product" :display="display"/>
   </div>
+  <!-- <i class="fa-2x fa-solid fa-arrow-down-a-z"></i>
+  <i class="fa-2x fa-solid fa-arrow-down-z-a"></i>
+  <i class="fa-2x fa-solid fa-arrow-down-short-wide"></i>
+  <i class="fa-2x fa-solid fa-arrow-down-wide-short"></i> -->
 </template>
 
 <script>
@@ -23,7 +29,8 @@ export default {
   },
   data() {
     return {
-      products: null
+      products: null,
+      display: 'grid'
     };
   },
   methods: {
@@ -53,15 +60,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.charts-container {
-  display: grid;
-  grid-template-columns: 33.3333% 33.3333% 33.3333%;
-  font-size: 7em;
-  
-  &:after {
-    clear: both;
-    content: '';
-    display: table;
+.products-container{
+  &-3 {
+    display: grid;
+    grid-template-columns: 33.3333% 33.3333% 33.3333%;
+    font-size: 7em;
+    
+    &:after {
+      clear: both;
+      content: '';
+      display: table;
+    }
+  }
+  &-2 {
+    display: grid;
+    grid-template-columns: 45% 5% 45% 5%;
+    font-size: 7em;
+    
+    &:after {
+      clear: both;
+      content: '';
+      display: table;
+    }
   }
 }
 </style>
