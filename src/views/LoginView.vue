@@ -78,7 +78,7 @@ form > div {
 }
 
 input {
-  border-color: #593712;
+  border-color: #826649;
   border-radius: 5px;
   font-size: 15px;
   padding: 5px;
@@ -87,7 +87,7 @@ input {
 button {
   width: 100%;
   color: white;
-  background-color: #593712;
+  background-color: #826649;
   border: none;
   border-radius: 2px;
   padding: 1.5vh 0;

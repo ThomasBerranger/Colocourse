@@ -143,7 +143,7 @@ div.pie-wrapper div {
 
 div.pie-label {
   text-align: center;
-  font-size: 20px;
+  font-size: 17px;
   
   .products-container-2 >a > & {
     width: 85%;
@@ -171,7 +171,7 @@ div.pie-label {
     height: 40px;
     
     & > i {
-      color: #593712;
+      color: #826649;
     }
   }
 }

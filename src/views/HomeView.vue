@@ -74,7 +74,7 @@ export default {
   padding: 10px;
 
   & > button {
-    background-color: #593712;
+    background-color: #826649;
     border: none;
     border-radius: 10px 15px 10px 15px;
     padding: 5px 10px 5px 10px;
