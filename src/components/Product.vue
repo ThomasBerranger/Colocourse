@@ -34,16 +34,20 @@ export default {
   },
   computed: {
     quantityPercentage() {
-      return Math.round((this.product.currentQuantity / this.product.maxQuantity) * 100);
+      if (this.product.currentQuantity >= this.product.maxQuantity) {
+        return 100;
+      } else {
+        return Math.round((this.product.currentQuantity / this.product.maxQuantity) * 100);
+      }
     }
   },
   methods: {
     async changeQuantity(product, changedCurrentQuantity) {
       if (changedCurrentQuantity >= 0 && changedCurrentQuantity <= product.maxQuantity) {
         const productToEdit = doc(db, 'products', product.id);
-
+        
         await updateDoc(productToEdit, { currentQuantity: changedCurrentQuantity });
-
+        
         product.currentQuantity = changedCurrentQuantity;
       }
     }
@@ -140,7 +144,7 @@ div.pie-wrapper div {
 div.pie-label {
   text-align: center;
   font-size: 20px;
-
+  
   .products-container-2 >a > & {
     width: 85%;
   }
@@ -159,7 +163,7 @@ div.pie-label {
   right: 30px;
   transform: translateY(-50%);
   padding: 15px 0 40px 0;
-
+  
   & > button {
     background-color:  #D8C3A5;
     border: none;

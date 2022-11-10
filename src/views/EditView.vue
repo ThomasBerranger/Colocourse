@@ -3,16 +3,28 @@
     <Product :product="{id: id, name: name, imageLink: imageLink, currentQuantity: currentQuantity, maxQuantity: maxQuantity}"/>
   </div>
   <form @submit.prevent="handleSubmit()">
-    <label for="name">Nom</label>
-    <input v-model="name" type="text" name="name" autocomplete="off" />
-    <label for="image-link">Lien vers image</label>
-    <input v-model="imageLink" type="image-link" autocomplete="off" />
-    <label for="maxQuantity">Quantité maximale</label>
-    <input v-model="maxQuantity" type="number" name="maxQuantity">
-    <label for="currentQuantity">Quantité actuelle</label>
-    <input v-model="currentQuantity" type="number" name="currentQuantity">
-    <button>Modifier</button>
-    <button @click="handleDelete()" type="button">Supprimer</button>
+    <input v-model="name" class="large-input" type="text" name="name" autocomplete="off" placeholder="Nom" />
+    <br>
+    <br>
+    <input v-model="imageLink" class="large-input" type="image-link" autocomplete="off" placeholder="Lien vers image"/>
+    <br>
+    <br>
+    <label for="maxQuantity">Quantité maximale :</label>
+    <div class="quantity-container">
+      <button @click="maxQuantity -= 1" type="button"><i class="fa-solid fa-minus"></i></button>
+      <input v-model="maxQuantity" class="small-input" type="number" name="maxQuantity">
+      <button @click="maxQuantity += 1" type="button"><i class="fa-solid fa-plus"></i></button>
+    </div>
+    <br><br>
+    <label for="currentQuantity">Quantité actuelle :</label>
+    <div class="quantity-container">
+      <button @click="currentQuantity -= 1" type="button"><i class="fa-solid fa-minus"></i></button>
+      <input v-model="currentQuantity" class="small-input" type="number" name="currentQuantity">
+      <button @click="currentQuantity += 1" type="button"><i class="fa-solid fa-plus"></i></button>
+    </div>
+    <br><br>
+    <button class="edit-button">Modifier</button>
+    <button class="delete-button" @click="handleDelete()" type="button"><i class="fa-solid fa-trash"></i></button>
   </form>
 </template>
 
@@ -77,6 +89,51 @@ export default {
     clear: both;
     content: '';
     display: table;
+  }
+}
+form {
+  text-align: center;
+  padding-bottom: 4vh;
+}
+.quantity-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+input {
+  padding: 5px;
+  text-align: center;
+  border-radius: 3px;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  &.large-input {
+    width: 60%;
+  }
+  &.small-input {
+    width: 20%;
+  }
+}
+button {
+  margin: 0 5px;
+  padding: 0 5px;
+  background-color: #593712;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  
+  &.edit-button, &.delete-button {
+    padding: 8px 15px;
+  }
+  &.edit-button {
+    background-color: rgb(111, 179, 97);
+  }
+  &.delete-button {
+    background-color: #fc5c65;
+  }
+
+  & > i {
+    color: white;
   }
 }
 </style>

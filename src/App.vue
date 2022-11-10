@@ -45,6 +45,7 @@ export default {
   .container {
     margin: 1vh;
     background-color: white;
+    border-radius: 3px;
   }
   
   * {
