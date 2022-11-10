@@ -50,8 +50,8 @@ nav {
   margin: 2vh 0;
   
   & > a > button {
-    background-color: #826649;
-    color: white;
+    background-color: #EAE7DC;
+    color: #826649;
     border: none;
     border-radius: 5px;
     padding: 10px 15px;
@@ -60,8 +60,8 @@ nav {
   }
   
   & > a.router-link-active > button {
-    background-color: #EAE7DC;
-    color: #826649;
+    background-color: #826649;
+    color: white;
   }
 }
 </style>

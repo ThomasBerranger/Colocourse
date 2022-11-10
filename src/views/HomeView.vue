@@ -1,8 +1,8 @@
 <template>
   <div class="filter-container">
     <button>
-      <i v-if="display === 'grid'" @click="display = 'edition'" class="fa-solid fa-list"></i>
-      <i v-else @click="display = 'grid'" class="fa-solid fa-plus-minus"></i>
+      <i v-if="display === 'grid'" @click="display = 'edition'" class="fa-solid fa-plus-minus"></i>
+      <i v-else @click="display = 'grid'" class="fa-solid fa-list"></i>
     </button>
     
     <button>
