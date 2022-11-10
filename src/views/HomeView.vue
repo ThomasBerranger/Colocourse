@@ -1,26 +1,23 @@
 <template>
-  <nav>
-    <router-link to="/add">Ajouter</router-link> |
-    <a @click.prevent="handleLogout()" href="#">Déconnexion</a> |
-    <i v-if="display === 'grid'" @click="display = 'edition'" class="fa-solid fa-plus-minus"></i>
-    <i v-else @click="display = 'grid'" class="fa-solid fa-user"></i>
-  </nav>
+  <i v-if="display === 'grid'" @click="display = 'edition'" class="fa-solid fa-plus-minus"></i>
+  <i v-else @click="display = 'grid'" class="fa-solid fa-user"></i>
+  
+  <i v-if="sortBy === 'quantity' && reverse === false" @click="sortBy = 'quantity'; reverse = true" class="fa-solid fa-arrow-down-short-wide"></i>
+  <i v-else-if="sortBy === 'quantity' && reverse === true" @click="sortBy = 'name'; reverse = false" class="fa-solid fa-arrow-down-wide-short"></i>
+  <i v-else-if="sortBy === 'name' && reverse === false" @click="sortBy = 'name'; reverse = true" class="fa-solid fa-arrow-down-a-z"></i>
+  <i v-else-if="sortBy === 'name' && reverse === true" @click="sortBy = 'quantity'; reverse = false" class="fa-solid fa-arrow-down-z-a"></i>
   <br><br>
   <div :class="display === 'grid' ? 'products-container-3' : 'products-container-2'">
-    <Product v-for="product in products" :key="product.id" :product="product" :display="display"/>
+    <Product v-for="product in orderedProducts" :key="product.id" :product="product" :display="display"/>
   </div>
-  <!-- <i class="fa-2x fa-solid fa-arrow-down-a-z"></i>
-  <i class="fa-2x fa-solid fa-arrow-down-z-a"></i>
-  <i class="fa-2x fa-solid fa-arrow-down-short-wide"></i>
-  <i class="fa-2x fa-solid fa-arrow-down-wide-short"></i> -->
 </template>
 
 <script>
-import { auth } from '@/firebase/config';
-import { signOut, getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { collection, getDocs, query, where } from "firebase/firestore"; 
 import { db } from "../firebase/config";
 import Product from '@/components/Product.vue';
+import { sortByQuantity, sortByName } from '@/methods/sort'
 
 export default {
   name: 'HomeView',
@@ -29,15 +26,21 @@ export default {
   },
   data() {
     return {
-      products: null,
-      display: 'grid'
+      products: [],
+      display: 'grid',
+      sortBy: 'quantity',
+      reverse: false
     };
   },
-  methods: {
-    handleLogout() {
-      signOut(auth);
-      
-      this.$router.push('/login');
+  computed: {
+    orderedProducts() {
+      if (this.sortBy === 'quantity') {
+        return sortByQuantity(this.products, this.reverse);
+      } else if (this.sortBy === 'name') {
+        return sortByName(this.products, this.reverse);
+      } else {
+        return this.products;
+      }
     }
   },
   async mounted() {  

@@ -32,9 +32,6 @@ export default {
     product: Object,
     display: String
   },
-  mounted() {
-    console.log(this.display);
-  },
   computed: {
     quantityPercentage() {
       return Math.round((this.product.currentQuantity / this.product.maxQuantity) * 100);

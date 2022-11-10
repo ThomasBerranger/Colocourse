@@ -18,6 +18,7 @@
 <script>
 import { auth } from '@/firebase/config';
 import { signInWithEmailAndPassword } from '@firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 export default {
   data() {
@@ -26,6 +27,15 @@ export default {
       password: '',
       error: null
     }
+  },
+  async beforeCreate() {  
+    const auth = getAuth();
+    
+    await onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.$router.push('/');
+      }
+    });
   },
   methods: {
     async handleSubmit() {
@@ -37,7 +47,7 @@ export default {
         }
         
         this.error = null;
-
+        
         this.$router.push('/');
       } catch (err) {
         this.error = err.message;

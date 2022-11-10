@@ -1,6 +1,5 @@
 <template>
   <h1>Ajout de produit</h1>
-  <router-link to="/">HOme</router-link>
   <form @submit.prevent="handleSubmit()">
     <label for="name">Nom</label>
     <input v-model="name" type="text" name="name" autocomplete="off" />
